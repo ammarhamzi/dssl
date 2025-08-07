@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
+import { useMemoryLeakPrevention } from '@/composables/useMemoryLeakPrevention';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -14,6 +15,7 @@ import { toast } from 'vue-sonner';
 
 const router = useRouter();
 const authStore = useAuthStore();
+const { addTimeout, clearAll } = useMemoryLeakPrevention();
 
 // Substation/Site data
 const substations = ref([
@@ -60,6 +62,8 @@ const isSubmitting = ref(false);
 const isSubmitted = ref(false);
 const error = ref<string | null>(null);
 const isLoadingLocation = ref(false);
+
+
 
 // Step management
 const currentStep = ref(1);
@@ -197,7 +201,7 @@ async function submitForm() {
     toast.success('Form submitted successfully! Waiting for manager approval.');
     
     // Reset form after a delay
-    setTimeout(() => {
+    addTimeout(() => {
       formData.value = { name: '', id: '' };
       isSubmitted.value = false;
     }, 3000);
@@ -307,6 +311,11 @@ function resetForm() {
 onMounted(() => {
   // Optionally auto-get location when component loads
   // getCurrentLocation();
+});
+
+// Component lifecycle
+onUnmounted(() => {
+  clearAll();
 });
 </script>
 

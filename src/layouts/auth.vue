@@ -72,7 +72,7 @@ function navigateTo(path: string) {
       >
         <div class="absolute inset-0 bg-zinc-900">
           <img
-            src="https://images.unsplash.com/photo-1594122230689-45899d9e6f69?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            src="https://imgs.search.brave.com/yIGAdl_QQPQ35P7yzwlqLAV-fxoqEa5YigeaEpLJjFo/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9hcGlj/bXMudGhlc3Rhci5j/b20ubXkvdXBsb2Fk/cy9pbWFnZXMvMjAy/NS8wMS8xNS8zMTE4/MDcwLmpwZw"
             alt="Authentication"
             class="h-full w-full object-cover opacity-30"
           />
@@ -87,10 +87,10 @@ function navigateTo(path: string) {
         <div class="relative z-20 mt-auto">
           <div class="space-y-2">
             <h1 class="text-3xl md:text-4xl font-bold tracking-tight text-white">
-              Malaysia Airports Portal
+              Malaysia Airports 
             </h1>
             <p class="text-slate-300">
-              Malaysia Airports Holdings Berhad - Official Portal
+              Digital Substations Logbook System
             </p>
           </div>
         </div>

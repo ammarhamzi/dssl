@@ -4,6 +4,7 @@ import router from "./router";
 import i18n from "./plugins/i18n";
 import analyticsPlugin from "./plugins/analytics";
 import configPlugin from "./plugins/config";
+import errorHandler from "./plugins/error-handler";
 import { useAuthStore } from "./stores/auth";
 import App from "./App.vue";
 import "./assets/index.css";
@@ -42,6 +43,7 @@ app.use(router); // Register router before auth initialization
 app.use(i18n);
 app.use(configPlugin);
 app.use(analyticsPlugin, { router });
+app.use(errorHandler); // Register error handler for memory leak prevention
 
 // Set initial locale from localStorage if available
 const savedLocale = localStorage.getItem('locale');

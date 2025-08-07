@@ -44,6 +44,61 @@ export const userRoutes: RouteRecordRaw[] = [
     }
   },
   {
+    path: '/user/inspections/normal',
+    name: 'user-inspections-normal',
+    component: () => import('@/pages/user/inspections/normal.vue'),
+    meta: {
+      requiresAuth: true,
+      roles: ['user'],
+      layout: 'dashboard',
+      title: 'Normal Inspection'
+    }
+  },
+  {
+    path: '/user/inspections/routine',
+    name: 'user-inspections-routine',
+    component: () => import('@/pages/user/inspections/routine/index.vue'),
+    meta: {
+      requiresAuth: true,
+      roles: ['user'],
+      layout: 'dashboard',
+      title: 'Routine Inspection'
+    }
+  },
+  {
+    path: '/user/inspections/routine/battery',
+    name: 'user-inspections-routine-battery',
+    component: () => import('@/pages/user/inspections/routine/battery.vue'),
+    meta: {
+      requiresAuth: true,
+      roles: ['user'],
+      layout: 'dashboard',
+      title: 'Battery Maintenance'
+    }
+  },
+  {
+    path: '/user/inspections/routine/maintenance',
+    name: 'user-inspections-routine-maintenance',
+    component: () => import('@/pages/user/inspections/routine/maintenance.vue'),
+    meta: {
+      requiresAuth: true,
+      roles: ['user'],
+      layout: 'dashboard',
+      title: 'Routine Maintenance Work Report'
+    }
+  },
+  {
+    path: '/user/inspections/routine/checklist',
+    name: 'user-inspections-routine-checklist',
+    component: () => import('@/pages/user/inspections/routine/checklist.vue'),
+    meta: {
+      requiresAuth: true,
+      roles: ['user'],
+      layout: 'dashboard',
+      title: 'AM Checklist'
+    }
+  },
+  {
     path: '/user/inspections-stats',
     name: 'user-inspections-stats',
     component: () => import('@/pages/user/inspections-stats/index.vue'),

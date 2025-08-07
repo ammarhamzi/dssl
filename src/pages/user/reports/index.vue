@@ -1,17 +1,17 @@
 <template>
   <div class="container mx-auto p-4 space-y-6">
     <!-- Header -->
-    <div class="flex items-center justify-between">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
       <div>
-        <h1 class="text-3xl font-bold">Report Analysis</h1>
+        <h1 class="text-2xl sm:text-3xl font-bold">Report Analysis</h1>
         <p class="text-muted-foreground mt-1">Comprehensive analysis and insights from inspection data</p>
       </div>
-      <div class="flex items-center gap-2">
-        <Button variant="outline" @click="generateReport">
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+        <Button variant="outline" @click="generateReport" class="w-full sm:w-auto">
           <FileTextIcon class="h-4 w-4 mr-2" />
           Generate Report
         </Button>
-        <Button variant="outline" @click="exportData">
+        <Button variant="outline" @click="exportData" class="w-full sm:w-auto">
           <DownloadIcon class="h-4 w-4 mr-2" />
           Export Data
         </Button>
@@ -21,7 +21,7 @@
     <!-- Filter Controls -->
     <Card>
       <CardContent class="p-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div>
             <Label for="dateRange">Date Range</Label>
             <Select v-model="filters.dateRange">
@@ -87,188 +87,119 @@
     </Card>
 
     <!-- Key Performance Indicators -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       <Card>
-        <CardContent class="p-6">
+        <CardContent class="p-4 sm:p-6">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm font-medium text-muted-foreground">Total Reports</p>
-              <p class="text-3xl font-bold">{{ kpis.totalReports }}</p>
+              <p class="text-2xl sm:text-3xl font-bold">{{ kpis.totalReports }}</p>
               <p class="text-xs text-green-600 mt-1">+8% vs last period</p>
             </div>
-            <div class="bg-blue-100 p-3 rounded-lg dark:bg-blue-900">
-              <FileTextIcon class="h-8 w-8 text-blue-600 dark:text-blue-400" />
+            <div class="bg-blue-100 p-2 sm:p-3 rounded-lg dark:bg-blue-900">
+              <FileTextIcon class="h-6 w-6 sm:h-8 sm:w-8 text-blue-600 dark:text-blue-400" />
             </div>
           </div>
         </CardContent>
       </Card>
 
       <Card>
-        <CardContent class="p-6">
+        <CardContent class="p-4 sm:p-6">
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-sm font-medium text-muted-foreground">Issues Found</p>
-              <p class="text-3xl font-bold">{{ kpis.issuesFound }}</p>
-              <p class="text-xs text-red-600 mt-1">+3 vs last period</p>
+              <p class="text-sm font-medium text-muted-foreground">Success Rate</p>
+              <p class="text-2xl sm:text-3xl font-bold">{{ kpis.successRate }}%</p>
+              <p class="text-xs text-green-600 mt-1">+2% vs last period</p>
             </div>
-            <div class="bg-red-100 p-3 rounded-lg dark:bg-red-900">
-              <AlertTriangleIcon class="h-8 w-8 text-red-600 dark:text-red-400" />
+            <div class="bg-green-100 p-2 sm:p-3 rounded-lg dark:bg-green-900">
+              <TrendingUpIcon class="h-6 w-6 sm:h-8 sm:w-8 text-green-600 dark:text-green-400" />
             </div>
           </div>
         </CardContent>
       </Card>
 
       <Card>
-        <CardContent class="p-6">
+        <CardContent class="p-4 sm:p-6">
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-sm font-medium text-muted-foreground">Avg. Response</p>
-              <p class="text-3xl font-bold">{{ kpis.avgResponse }}h</p>
-              <p class="text-xs text-green-600 mt-1">-1.2h vs last period</p>
+              <p class="text-sm font-medium text-muted-foreground">Avg. Response Time</p>
+              <p class="text-2xl sm:text-3xl font-bold">{{ kpis.avgResponseTime }}h</p>
+              <p class="text-xs text-red-600 mt-1">-1h vs last period</p>
             </div>
-            <div class="bg-yellow-100 p-3 rounded-lg dark:bg-yellow-900">
-              <ClockIcon class="h-8 w-8 text-yellow-600 dark:text-yellow-400" />
+            <div class="bg-yellow-100 p-2 sm:p-3 rounded-lg dark:bg-yellow-900">
+              <ClockIcon class="h-6 w-6 sm:h-8 sm:w-8 text-yellow-600 dark:text-yellow-400" />
             </div>
           </div>
         </CardContent>
       </Card>
 
       <Card>
-        <CardContent class="p-6">
+        <CardContent class="p-4 sm:p-6">
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-sm font-medium text-muted-foreground">Quality Score</p>
-              <p class="text-3xl font-bold">{{ kpis.qualityScore }}/10</p>
-              <p class="text-xs text-green-600 mt-1">+0.3 vs last period</p>
+              <p class="text-sm font-medium text-muted-foreground">Compliance Score</p>
+              <p class="text-2xl sm:text-3xl font-bold">{{ kpis.complianceScore }}%</p>
+              <p class="text-xs text-green-600 mt-1">+5% vs last period</p>
             </div>
-            <div class="bg-green-100 p-3 rounded-lg dark:bg-green-900">
-              <StarIcon class="h-8 w-8 text-green-600 dark:text-green-400" />
+            <div class="bg-purple-100 p-2 sm:p-3 rounded-lg dark:bg-purple-900">
+              <ShieldIcon class="h-6 w-6 sm:h-8 sm:w-8 text-purple-600 dark:text-purple-400" />
             </div>
           </div>
         </CardContent>
       </Card>
     </div>
 
-    <!-- Charts and Analysis -->
+    <!-- Charts and Analytics -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <!-- Performance Trends -->
+      <!-- Inspection Trends Chart -->
       <Card>
         <CardHeader>
-          <CardTitle class="flex items-center">
-            <TrendingUpIcon class="h-5 w-5 mr-2" />
-            Performance Trends
+          <CardTitle class="flex items-center text-base sm:text-lg">
+            <BarChart3Icon class="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
+            Inspection Trends
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="text-sm font-medium">Inspection Completion Rate</span>
-              <span class="text-sm text-muted-foreground">94%</span>
-            </div>
-            <div class="w-full bg-muted rounded-full h-2">
-              <div class="bg-blue-600 h-2 rounded-full transition-all duration-500" style="width: 94%"></div>
-            </div>
-
-            <div class="flex items-center justify-between">
-              <span class="text-sm font-medium">Issue Resolution Rate</span>
-              <span class="text-sm text-muted-foreground">89%</span>
-            </div>
-            <div class="w-full bg-muted rounded-full h-2">
-              <div class="bg-green-600 h-2 rounded-full transition-all duration-500" style="width: 89%"></div>
-            </div>
-
-            <div class="flex items-center justify-between">
-              <span class="text-sm font-medium">On-time Submission</span>
-              <span class="text-sm text-muted-foreground">96%</span>
-            </div>
-            <div class="w-full bg-muted rounded-full h-2">
-              <div class="bg-purple-600 h-2 rounded-full transition-all duration-500" style="width: 96%"></div>
-            </div>
-
-            <div class="flex items-center justify-between">
-              <span class="text-sm font-medium">Data Quality</span>
-              <span class="text-sm text-muted-foreground">92%</span>
-            </div>
-            <div class="w-full bg-muted rounded-full h-2">
-              <div class="bg-yellow-600 h-2 rounded-full transition-all duration-500" style="width: 92%"></div>
+          <div class="h-64 sm:h-80">
+            <!-- Chart placeholder -->
+            <div class="w-full h-full bg-muted rounded-lg flex items-center justify-center">
+              <div class="text-center">
+                <BarChart3Icon class="h-12 w-12 text-muted-foreground mx-auto mb-2" />
+                <p class="text-sm text-muted-foreground">Chart visualization</p>
+              </div>
             </div>
           </div>
         </CardContent>
       </Card>
 
-      <!-- Issue Categories -->
+      <!-- Site Performance Chart -->
       <Card>
         <CardHeader>
-          <CardTitle class="flex items-center">
-            <PieChartIcon class="h-5 w-5 mr-2" />
-            Issue Categories
+          <CardTitle class="flex items-center text-base sm:text-lg">
+            <PieChartIcon class="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
+            Site Performance
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div class="space-y-4">
-            <div v-for="category in issueCategories" :key="category.name" class="flex items-center justify-between">
-              <div class="flex items-center space-x-3">
-                <div class="w-4 h-4 rounded-full" :style="{ backgroundColor: category.color }"></div>
-                <span class="text-sm font-medium">{{ category.name }}</span>
+          <div class="h-64 sm:h-80">
+            <!-- Chart placeholder -->
+            <div class="w-full h-full bg-muted rounded-lg flex items-center justify-center">
+              <div class="text-center">
+                <PieChartIcon class="h-12 w-12 text-muted-foreground mx-auto mb-2" />
+                <p class="text-sm text-muted-foreground">Chart visualization</p>
               </div>
-              <div class="flex items-center space-x-2">
-                <span class="text-sm text-muted-foreground">{{ category.count }}</span>
-                <span class="text-sm font-medium">{{ category.percentage }}%</span>
-              </div>
-            </div>
-            <div class="mt-6 h-2 bg-muted rounded-full overflow-hidden flex">
-              <div 
-                v-for="category in issueCategories" 
-                :key="category.name"
-                class="h-full transition-all duration-500"
-                :style="{ 
-                  width: `${category.percentage}%`, 
-                  backgroundColor: category.color 
-                }"
-              ></div>
             </div>
           </div>
         </CardContent>
       </Card>
     </div>
 
-    <!-- Monthly Comparison -->
+    <!-- Recent Reports Table -->
     <Card>
       <CardHeader>
-        <CardTitle class="flex items-center">
-          <BarChart3Icon class="h-5 w-5 mr-2" />
-          Monthly Comparison
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div v-for="month in monthlyData" :key="month.month" class="text-center">
-            <h4 class="font-semibold mb-2">{{ month.month }}</h4>
-            <div class="space-y-2">
-              <div class="flex justify-between">
-                <span class="text-sm text-muted-foreground">Inspections</span>
-                <span class="text-sm font-medium">{{ month.inspections }}</span>
-              </div>
-              <div class="flex justify-between">
-                <span class="text-sm text-muted-foreground">Issues</span>
-                <span class="text-sm font-medium text-red-600">{{ month.issues }}</span>
-              </div>
-              <div class="flex justify-between">
-                <span class="text-sm text-muted-foreground">Avg. Score</span>
-                <span class="text-sm font-medium text-green-600">{{ month.avgScore }}/10</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
-
-    <!-- Detailed Report Table -->
-    <Card>
-      <CardHeader>
-        <CardTitle class="flex items-center">
-          <TableIcon class="h-5 w-5 mr-2" />
-          Detailed Report Data
+        <CardTitle class="flex items-center text-base sm:text-lg">
+          <TableIcon class="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
+          Recent Reports
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -276,100 +207,38 @@
           <table class="w-full">
             <thead>
               <tr class="border-b">
-                <th class="text-left p-3">Date</th>
-                <th class="text-left p-3">Site</th>
-                <th class="text-left p-3">Inspector</th>
-                <th class="text-left p-3">Type</th>
-                <th class="text-left p-3">Status</th>
-                <th class="text-left p-3">Issues</th>
-                <th class="text-left p-3">Score</th>
-                <th class="text-left p-3">Actions</th>
+                <th class="text-left p-2 text-xs sm:text-sm font-medium">Report ID</th>
+                <th class="text-left p-2 text-xs sm:text-sm font-medium">Site</th>
+                <th class="text-left p-2 text-xs sm:text-sm font-medium">Type</th>
+                <th class="text-left p-2 text-xs sm:text-sm font-medium">Status</th>
+                <th class="text-left p-2 text-xs sm:text-sm font-medium">Date</th>
+                <th class="text-left p-2 text-xs sm:text-sm font-medium">Actions</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="report in detailedReports" :key="report.id" class="border-b hover:bg-muted/50">
-                <td class="p-3">{{ formatDate(report.date) }}</td>
-                <td class="p-3 font-medium">{{ report.site }}</td>
-                <td class="p-3">{{ report.inspector }}</td>
-                <td class="p-3">
-                  <Badge variant="outline">{{ report.type }}</Badge>
-                </td>
-                <td class="p-3">
-                  <Badge :variant="getStatusVariant(report.status)">
+              <tr v-for="report in recentReports" :key="report.id" class="border-b hover:bg-muted/50">
+                <td class="p-2 text-xs sm:text-sm">{{ report.id }}</td>
+                <td class="p-2 text-xs sm:text-sm">{{ report.site }}</td>
+                <td class="p-2 text-xs sm:text-sm">{{ report.type }}</td>
+                <td class="p-2">
+                  <Badge :variant="getStatusVariant(report.status)" class="text-xs">
                     {{ report.status }}
                   </Badge>
                 </td>
-                <td class="p-3">
-                  <span :class="report.issues > 0 ? 'text-red-600' : 'text-green-600'">
-                    {{ report.issues }}
-                  </span>
-                </td>
-                <td class="p-3">
-                  <span :class="report.score >= 8 ? 'text-green-600' : report.score >= 6 ? 'text-yellow-600' : 'text-red-600'">
-                    {{ report.score }}/10
-                  </span>
-                </td>
-                <td class="p-3">
-                  <div class="flex items-center gap-2">
+                <td class="p-2 text-xs sm:text-sm">{{ formatDate(report.date) }}</td>
+                <td class="p-2">
+                  <div class="flex items-center gap-1">
                     <Button variant="ghost" size="sm" @click="viewReport(report.id)">
-                      <EyeIcon class="h-4 w-4" />
+                      <EyeIcon class="h-3 w-3" />
                     </Button>
                     <Button variant="ghost" size="sm" @click="downloadReport(report.id)">
-                      <DownloadIcon class="h-4 w-4" />
+                      <DownloadIcon class="h-3 w-3" />
                     </Button>
                   </div>
                 </td>
               </tr>
             </tbody>
           </table>
-        </div>
-      </CardContent>
-    </Card>
-
-    <!-- Insights and Recommendations -->
-    <Card>
-      <CardHeader>
-        <CardTitle class="flex items-center">
-          <LightbulbIcon class="h-5 w-5 mr-2" />
-          Insights & Recommendations
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <h4 class="font-semibold mb-3 text-green-600">Positive Trends</h4>
-            <ul class="space-y-2">
-              <li class="flex items-start space-x-2">
-                <CheckCircleIcon class="h-4 w-4 text-green-600 mt-0.5" />
-                <span class="text-sm">Inspection completion rate improved by 8%</span>
-              </li>
-              <li class="flex items-start space-x-2">
-                <CheckCircleIcon class="h-4 w-4 text-green-600 mt-0.5" />
-                <span class="text-sm">Average response time reduced by 1.2 hours</span>
-              </li>
-              <li class="flex items-start space-x-2">
-                <CheckCircleIcon class="h-4 w-4 text-green-600 mt-0.5" />
-                <span class="text-sm">Quality scores consistently above 9.0</span>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4 class="font-semibold mb-3 text-yellow-600">Areas for Improvement</h4>
-            <ul class="space-y-2">
-              <li class="flex items-start space-x-2">
-                <AlertTriangleIcon class="h-4 w-4 text-yellow-600 mt-0.5" />
-                <span class="text-sm">Increase focus on electrical safety checks</span>
-              </li>
-              <li class="flex items-start space-x-2">
-                <AlertTriangleIcon class="h-4 w-4 text-yellow-600 mt-0.5" />
-                <span class="text-sm">BTA site requires additional attention</span>
-              </li>
-              <li class="flex items-start space-x-2">
-                <AlertTriangleIcon class="h-4 w-4 text-yellow-600 mt-0.5" />
-                <span class="text-sm">Consider more frequent thermal inspections</span>
-              </li>
-            </ul>
-          </div>
         </div>
       </CardContent>
     </Card>
@@ -406,7 +275,8 @@ import {
   Table as TableIcon,
   Eye as EyeIcon,
   Lightbulb as LightbulbIcon,
-  CheckCircle as CheckCircleIcon
+  CheckCircle as CheckCircleIcon,
+  Shield as ShieldIcon
 } from "lucide-vue-next";
 import { toast } from "vue-sonner";
 
@@ -423,7 +293,10 @@ const kpis = ref({
   totalReports: 156,
   issuesFound: 23,
   avgResponse: 2.8,
-  qualityScore: 9.2
+  qualityScore: 9.2,
+  successRate: 98,
+  avgResponseTime: 3.5,
+  complianceScore: 95
 });
 
 // Issue categories
@@ -483,6 +356,14 @@ const detailedReports = ref([
     issues: 5,
     score: 6.5
   }
+]);
+
+// Recent reports for the table
+const recentReports = ref([
+  { id: 1, site: 'APC-01', type: 'Visual', status: 'approved', date: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000) },
+  { id: 2, site: 'SSA-02', type: 'Thermal', status: 'pending', date: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000) },
+  { id: 3, site: 'FTA-03', type: 'Electrical', status: 'approved', date: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000) },
+  { id: 4, site: 'BTA-01', type: 'Safety', status: 'rejected', date: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000) }
 ]);
 
 // Methods

@@ -1,9 +1,9 @@
 <template>
   <div class="container mx-auto p-4 space-y-6">
     <!-- Header -->
-    <div class="flex items-center justify-between">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
       <div>
-        <h1 class="text-3xl font-bold">Dashboard</h1>
+        <h1 class="text-2xl sm:text-3xl font-bold">Dashboard</h1>
         <p class="text-muted-foreground mt-1">Digital Substation Log Book System</p>
       </div>
       <div class="text-sm text-muted-foreground">
@@ -12,58 +12,58 @@
     </div>
 
     <!-- Quick Stats Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       <Card>
-        <CardContent class="p-6">
+        <CardContent class="p-4 sm:p-6">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm font-medium text-muted-foreground">Pending Tasks</p>
-              <p class="text-2xl font-bold">{{ stats.pendingTasks }}</p>
+              <p class="text-xl sm:text-2xl font-bold">{{ stats.pendingTasks }}</p>
             </div>
-            <div class="bg-yellow-100 p-3 rounded-lg dark:bg-yellow-900">
-              <ClockIcon class="h-6 w-6 text-yellow-600 dark:text-yellow-400" />
+            <div class="bg-yellow-100 p-2 sm:p-3 rounded-lg dark:bg-yellow-900">
+              <ClockIcon class="h-5 w-5 sm:h-6 sm:w-6 text-yellow-600 dark:text-yellow-400" />
             </div>
           </div>
         </CardContent>
       </Card>
 
       <Card>
-        <CardContent class="p-6">
+        <CardContent class="p-4 sm:p-6">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm font-medium text-muted-foreground">Completed Inspections</p>
-              <p class="text-2xl font-bold">{{ stats.completedInspections }}</p>
+              <p class="text-xl sm:text-2xl font-bold">{{ stats.completedInspections }}</p>
             </div>
-            <div class="bg-green-100 p-3 rounded-lg dark:bg-green-900">
-              <CheckCircleIcon class="h-6 w-6 text-green-600 dark:text-green-400" />
+            <div class="bg-green-100 p-2 sm:p-3 rounded-lg dark:bg-green-900">
+              <CheckCircleIcon class="h-5 w-5 sm:h-6 sm:w-6 text-green-600 dark:text-green-400" />
             </div>
           </div>
         </CardContent>
       </Card>
 
       <Card>
-        <CardContent class="p-6">
+        <CardContent class="p-4 sm:p-6">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm font-medium text-muted-foreground">Total Reports</p>
-              <p class="text-2xl font-bold">{{ stats.totalReports }}</p>
+              <p class="text-xl sm:text-2xl font-bold">{{ stats.totalReports }}</p>
             </div>
-            <div class="bg-blue-100 p-3 rounded-lg dark:bg-blue-900">
-              <FileTextIcon class="h-6 w-6 text-blue-600 dark:text-blue-400" />
+            <div class="bg-blue-100 p-2 sm:p-3 rounded-lg dark:bg-blue-900">
+              <FileTextIcon class="h-5 w-5 sm:h-6 sm:w-6 text-blue-600 dark:text-blue-400" />
             </div>
           </div>
         </CardContent>
       </Card>
 
       <Card>
-        <CardContent class="p-6">
+        <CardContent class="p-4 sm:p-6">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm font-medium text-muted-foreground">Success Rate</p>
-              <p class="text-2xl font-bold">{{ stats.successRate }}%</p>
+              <p class="text-xl sm:text-2xl font-bold">{{ stats.successRate }}%</p>
             </div>
-            <div class="bg-purple-100 p-3 rounded-lg dark:bg-purple-900">
-              <TrendingUpIcon class="h-6 w-6 text-purple-600 dark:text-purple-400" />
+            <div class="bg-purple-100 p-2 sm:p-3 rounded-lg dark:bg-purple-900">
+              <TrendingUpIcon class="h-5 w-5 sm:h-6 sm:w-6 text-purple-600 dark:text-purple-400" />
             </div>
           </div>
         </CardContent>
@@ -71,44 +71,44 @@
     </div>
 
     <!-- Quick Actions -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       <Card class="cursor-pointer hover:shadow-md transition-shadow" @click="$router.push('/user/inspections')">
-        <CardContent class="p-6">
-          <div class="flex items-center space-x-4">
-            <div class="bg-orange-100 p-3 rounded-lg dark:bg-orange-900">
-              <ClipboardCheckIcon class="h-8 w-8 text-orange-600 dark:text-orange-400" />
+        <CardContent class="p-4 sm:p-6">
+          <div class="flex items-center space-x-3 sm:space-x-4">
+            <div class="bg-orange-100 p-2 sm:p-3 rounded-lg dark:bg-orange-900 flex-shrink-0">
+              <ClipboardCheckIcon class="h-6 w-6 sm:h-8 sm:w-8 text-orange-600 dark:text-orange-400" />
             </div>
-            <div>
-              <h3 class="font-semibold">New Inspection</h3>
-              <p class="text-sm text-muted-foreground">Submit inspection report</p>
+            <div class="min-w-0 flex-1">
+              <h3 class="font-semibold text-sm sm:text-base">New Inspection</h3>
+              <p class="text-xs sm:text-sm text-muted-foreground">Submit inspection report</p>
             </div>
           </div>
         </CardContent>
       </Card>
 
       <Card class="cursor-pointer hover:shadow-md transition-shadow" @click="$router.push('/user/todo')">
-        <CardContent class="p-6">
-          <div class="flex items-center space-x-4">
-            <div class="bg-blue-100 p-3 rounded-lg dark:bg-blue-900">
-              <ListChecksIcon class="h-8 w-8 text-blue-600 dark:text-blue-400" />
+        <CardContent class="p-4 sm:p-6">
+          <div class="flex items-center space-x-3 sm:space-x-4">
+            <div class="bg-blue-100 p-2 sm:p-3 rounded-lg dark:bg-blue-900 flex-shrink-0">
+              <ListChecksIcon class="h-6 w-6 sm:h-8 sm:w-8 text-blue-600 dark:text-blue-400" />
             </div>
-            <div>
-              <h3 class="font-semibold">To Do List</h3>
-              <p class="text-sm text-muted-foreground">Manage your tasks</p>
+            <div class="min-w-0 flex-1">
+              <h3 class="font-semibold text-sm sm:text-base">To Do List</h3>
+              <p class="text-xs sm:text-sm text-muted-foreground">Manage your tasks</p>
             </div>
           </div>
         </CardContent>
       </Card>
 
       <Card class="cursor-pointer hover:shadow-md transition-shadow" @click="$router.push('/user/reports')">
-        <CardContent class="p-6">
-          <div class="flex items-center space-x-4">
-            <div class="bg-green-100 p-3 rounded-lg dark:bg-green-900">
-              <BarChart3Icon class="h-8 w-8 text-green-600 dark:text-green-400" />
+        <CardContent class="p-4 sm:p-6">
+          <div class="flex items-center space-x-3 sm:space-x-4">
+            <div class="bg-green-100 p-2 sm:p-3 rounded-lg dark:bg-green-900 flex-shrink-0">
+              <BarChart3Icon class="h-6 w-6 sm:h-8 sm:w-8 text-green-600 dark:text-green-400" />
             </div>
-            <div>
-              <h3 class="font-semibold">View Reports</h3>
-              <p class="text-sm text-muted-foreground">Analysis & insights</p>
+            <div class="min-w-0 flex-1">
+              <h3 class="font-semibold text-sm sm:text-base">View Reports</h3>
+              <p class="text-xs sm:text-sm text-muted-foreground">Analysis & insights</p>
             </div>
           </div>
         </CardContent>
@@ -120,17 +120,17 @@
       <!-- Recent Activity -->
       <Card>
         <CardHeader>
-          <CardTitle class="flex items-center">
-            <ActivityIcon class="h-5 w-5 mr-2" />
+          <CardTitle class="flex items-center text-base sm:text-lg">
+            <ActivityIcon class="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
             Recent Activity
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div class="space-y-4">
             <div v-for="activity in recentActivities" :key="activity.id" class="flex items-start space-x-3">
-              <div class="w-2 h-2 rounded-full mt-2" :class="getActivityColor(activity.type)"></div>
-              <div class="flex-1">
-                <p class="text-sm font-medium">{{ activity.title }}</p>
+              <div class="w-2 h-2 rounded-full mt-2 flex-shrink-0" :class="getActivityColor(activity.type)"></div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium truncate">{{ activity.title }}</p>
                 <p class="text-xs text-muted-foreground">{{ activity.description }}</p>
                 <p class="text-xs text-muted-foreground mt-1">{{ formatDate(activity.date) }}</p>
               </div>
@@ -142,22 +142,22 @@
       <!-- Weekly Progress Chart -->
       <Card>
         <CardHeader>
-          <CardTitle class="flex items-center">
-            <TrendingUpIcon class="h-5 w-5 mr-2" />
+          <CardTitle class="flex items-center text-base sm:text-lg">
+            <TrendingUpIcon class="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
             Weekly Progress
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div class="space-y-4">
             <div v-for="(day, index) in weeklyProgress" :key="index" class="flex items-center space-x-3">
-              <div class="w-12 text-sm text-muted-foreground">{{ day.day }}</div>
+              <div class="w-10 sm:w-12 text-xs sm:text-sm text-muted-foreground">{{ day.day }}</div>
               <div class="flex-1 bg-muted rounded-full h-2">
                 <div 
                   class="bg-primary h-2 rounded-full transition-all duration-300" 
                   :style="{ width: `${day.progress}%` }"
                 ></div>
               </div>
-              <div class="w-12 text-sm font-medium text-right">{{ day.progress }}%</div>
+              <div class="w-10 sm:w-12 text-xs sm:text-sm font-medium text-right">{{ day.progress }}%</div>
             </div>
           </div>
         </CardContent>
@@ -167,24 +167,24 @@
     <!-- Upcoming Tasks -->
     <Card>
       <CardHeader>
-        <CardTitle class="flex items-center">
-          <CalendarIcon class="h-5 w-5 mr-2" />
+        <CardTitle class="flex items-center text-base sm:text-lg">
+          <CalendarIcon class="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
           Upcoming Tasks
         </CardTitle>
       </CardHeader>
       <CardContent>
         <div class="space-y-3">
           <div v-for="task in upcomingTasks" :key="task.id" 
-               class="flex items-center justify-between p-3 border rounded-lg hover:bg-muted/50 transition-colors">
+               class="flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 border rounded-lg hover:bg-muted/50 transition-colors gap-2">
             <div class="flex items-center space-x-3">
-              <div class="w-3 h-3 rounded-full" :class="getPriorityColor(task.priority)"></div>
-              <div>
-                <p class="font-medium">{{ task.title }}</p>
-                <p class="text-sm text-muted-foreground">{{ task.description }}</p>
+              <div class="w-3 h-3 rounded-full flex-shrink-0" :class="getPriorityColor(task.priority)"></div>
+              <div class="min-w-0 flex-1">
+                <p class="font-medium text-sm sm:text-base truncate">{{ task.title }}</p>
+                <p class="text-xs sm:text-sm text-muted-foreground">{{ task.description }}</p>
               </div>
             </div>
-            <div class="text-right">
-              <p class="text-sm font-medium">{{ formatDate(task.dueDate) }}</p>
+            <div class="text-left sm:text-right">
+              <p class="text-xs sm:text-sm font-medium">{{ formatDate(task.dueDate) }}</p>
               <p class="text-xs text-muted-foreground">{{ task.priority }} priority</p>
             </div>
           </div>

@@ -1,14 +1,14 @@
 <template>
   <div class="container mx-auto p-4 space-y-6">
     <!-- Header -->
-    <div class="flex items-center justify-between">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
       <div>
-        <h1 class="text-3xl font-bold">Inspections Statistics</h1>
+        <h1 class="text-2xl sm:text-3xl font-bold">Inspections Statistics</h1>
         <p class="text-muted-foreground mt-1">Analytics and insights for your inspection activities</p>
       </div>
-      <div class="flex items-center gap-2">
-        <Select v-model="timeRange">
-          <SelectTrigger class="w-[180px]">
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+        <Select v-model="timeRange" class="w-full sm:w-[180px]">
+          <SelectTrigger>
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -18,7 +18,7 @@
             <SelectItem value="1y">Last year</SelectItem>
           </SelectContent>
         </Select>
-        <Button variant="outline" @click="refreshData">
+        <Button variant="outline" @click="refreshData" class="w-full sm:w-auto">
           <RefreshCwIcon class="h-4 w-4 mr-2" />
           Refresh
         </Button>
@@ -26,62 +26,62 @@
     </div>
 
     <!-- Key Metrics -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       <Card>
-        <CardContent class="p-6">
+        <CardContent class="p-4 sm:p-6">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm font-medium text-muted-foreground">Total Inspections</p>
-              <p class="text-3xl font-bold">{{ metrics.totalInspections }}</p>
+              <p class="text-2xl sm:text-3xl font-bold">{{ metrics.totalInspections }}</p>
               <p class="text-xs text-green-600 mt-1">+12% from last period</p>
             </div>
-            <div class="bg-blue-100 p-3 rounded-lg dark:bg-blue-900">
-              <ClipboardCheckIcon class="h-8 w-8 text-blue-600 dark:text-blue-400" />
+            <div class="bg-blue-100 p-2 sm:p-3 rounded-lg dark:bg-blue-900">
+              <ClipboardCheckIcon class="h-6 w-6 sm:h-8 sm:w-8 text-blue-600 dark:text-blue-400" />
             </div>
           </div>
         </CardContent>
       </Card>
 
       <Card>
-        <CardContent class="p-6">
+        <CardContent class="p-4 sm:p-6">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm font-medium text-muted-foreground">Completion Rate</p>
-              <p class="text-3xl font-bold">{{ metrics.completionRate }}%</p>
+              <p class="text-2xl sm:text-3xl font-bold">{{ metrics.completionRate }}%</p>
               <p class="text-xs text-green-600 mt-1">+3% from last period</p>
             </div>
-            <div class="bg-green-100 p-3 rounded-lg dark:bg-green-900">
-              <TrendingUpIcon class="h-8 w-8 text-green-600 dark:text-green-400" />
+            <div class="bg-green-100 p-2 sm:p-3 rounded-lg dark:bg-green-900">
+              <TrendingUpIcon class="h-6 w-6 sm:h-8 sm:w-8 text-green-600 dark:text-green-400" />
             </div>
           </div>
         </CardContent>
       </Card>
 
       <Card>
-        <CardContent class="p-6">
+        <CardContent class="p-4 sm:p-6">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm font-medium text-muted-foreground">Avg. Response Time</p>
-              <p class="text-3xl font-bold">{{ metrics.avgResponseTime }}h</p>
+              <p class="text-2xl sm:text-3xl font-bold">{{ metrics.avgResponseTime }}h</p>
               <p class="text-xs text-red-600 mt-1">-2h from last period</p>
             </div>
-            <div class="bg-yellow-100 p-3 rounded-lg dark:bg-yellow-900">
-              <ClockIcon class="h-8 w-8 text-yellow-600 dark:text-yellow-400" />
+            <div class="bg-yellow-100 p-2 sm:p-3 rounded-lg dark:bg-yellow-900">
+              <ClockIcon class="h-6 w-6 sm:h-8 sm:w-8 text-yellow-600 dark:text-yellow-400" />
             </div>
           </div>
         </CardContent>
       </Card>
 
       <Card>
-        <CardContent class="p-6">
+        <CardContent class="p-4 sm:p-6">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm font-medium text-muted-foreground">Approval Rate</p>
-              <p class="text-3xl font-bold">{{ metrics.approvalRate }}%</p>
+              <p class="text-2xl sm:text-3xl font-bold">{{ metrics.approvalRate }}%</p>
               <p class="text-xs text-green-600 mt-1">+1% from last period</p>
             </div>
-            <div class="bg-purple-100 p-3 rounded-lg dark:bg-purple-900">
-              <CheckCircleIcon class="h-8 w-8 text-purple-600 dark:text-purple-400" />
+            <div class="bg-purple-100 p-2 sm:p-3 rounded-lg dark:bg-purple-900">
+              <CheckCircleIcon class="h-6 w-6 sm:h-8 sm:w-8 text-purple-600 dark:text-purple-400" />
             </div>
           </div>
         </CardContent>
@@ -93,62 +93,39 @@
       <!-- Inspection Trends Chart -->
       <Card>
         <CardHeader>
-          <CardTitle class="flex items-center">
-            <BarChart3Icon class="h-5 w-5 mr-2" />
+          <CardTitle class="flex items-center text-base sm:text-lg">
+            <BarChart3Icon class="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
             Inspection Trends
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div class="h-80 flex items-center justify-center bg-muted/20 rounded-lg">
-            <!-- Simple bar chart visualization -->
-            <div class="w-full max-w-sm space-y-4">
-              <div v-for="(item, index) in trendData" :key="index" class="flex items-center space-x-3">
-                <div class="w-16 text-sm text-muted-foreground">{{ item.period }}</div>
-                <div class="flex-1 bg-muted rounded-full h-6 relative">
-                  <div 
-                    class="bg-gradient-to-r from-blue-500 to-blue-600 h-6 rounded-full flex items-center justify-end pr-2 transition-all duration-500" 
-                    :style="{ width: `${(item.value / Math.max(...trendData.map(d => d.value))) * 100}%` }"
-                  >
-                    <span class="text-white text-xs font-medium">{{ item.value }}</span>
-                  </div>
-                </div>
+          <div class="h-64 sm:h-80">
+            <!-- Chart placeholder -->
+            <div class="w-full h-full bg-muted rounded-lg flex items-center justify-center">
+              <div class="text-center">
+                <BarChart3Icon class="h-12 w-12 text-muted-foreground mx-auto mb-2" />
+                <p class="text-sm text-muted-foreground">Chart visualization</p>
               </div>
             </div>
           </div>
         </CardContent>
       </Card>
 
-      <!-- Status Distribution -->
+      <!-- Site Performance Chart -->
       <Card>
         <CardHeader>
-          <CardTitle class="flex items-center">
-            <PieChartIcon class="h-5 w-5 mr-2" />
-            Status Distribution
+          <CardTitle class="flex items-center text-base sm:text-lg">
+            <PieChartIcon class="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
+            Site Performance
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div class="space-y-4">
-            <div v-for="status in statusDistribution" :key="status.label" class="flex items-center justify-between">
-              <div class="flex items-center space-x-3">
-                <div class="w-4 h-4 rounded-full" :style="{ backgroundColor: status.color }"></div>
-                <span class="text-sm font-medium">{{ status.label }}</span>
-              </div>
-              <div class="flex items-center space-x-2">
-                <span class="text-sm text-muted-foreground">{{ status.count }}</span>
-                <span class="text-sm font-medium">{{ status.percentage }}%</span>
-              </div>
-            </div>
-            <div class="mt-6 space-y-2">
-              <div v-for="status in statusDistribution" :key="status.label" class="flex items-center space-x-2">
-                <div class="flex-1 bg-muted rounded-full h-2">
-                  <div 
-                    class="h-2 rounded-full transition-all duration-500" 
-                    :style="{ 
-                      width: `${status.percentage}%`, 
-                      backgroundColor: status.color 
-                    }"
-                  ></div>
-                </div>
+          <div class="h-64 sm:h-80">
+            <!-- Chart placeholder -->
+            <div class="w-full h-full bg-muted rounded-lg flex items-center justify-center">
+              <div class="text-center">
+                <PieChartIcon class="h-12 w-12 text-muted-foreground mx-auto mb-2" />
+                <p class="text-sm text-muted-foreground">Chart visualization</p>
               </div>
             </div>
           </div>
@@ -156,38 +133,53 @@
       </Card>
     </div>
 
-    <!-- Site Performance and Recent Activity -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <!-- Performance Metrics -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Inspection Types Distribution -->
+      <Card>
+        <CardHeader>
+          <CardTitle class="flex items-center text-base sm:text-lg">
+            <PieChartIcon class="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
+            Inspection Types
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div class="space-y-4">
+            <div v-for="type in inspectionTypes" :key="type.name" class="flex items-center justify-between">
+              <div class="flex items-center space-x-3">
+                <div class="w-3 h-3 rounded-full" :style="{ backgroundColor: type.color }"></div>
+                <span class="text-sm font-medium">{{ type.name }}</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <span class="text-sm text-muted-foreground">{{ type.count }}</span>
+                <span class="text-sm font-medium">{{ type.percentage }}%</span>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
       <!-- Site Performance -->
       <Card>
         <CardHeader>
-          <CardTitle class="flex items-center">
-            <MapPinIcon class="h-5 w-5 mr-2" />
+          <CardTitle class="flex items-center text-base sm:text-lg">
+            <MapPinIcon class="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
             Site Performance
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div class="space-y-4">
-            <div v-for="site in sitePerformance" :key="site.code" 
-                 class="flex items-center justify-between p-3 border rounded-lg">
-              <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                  <span class="text-sm font-bold text-primary">{{ site.code }}</span>
-                </div>
-                <div>
-                  <p class="font-medium">{{ site.name }}</p>
-                  <p class="text-sm text-muted-foreground">{{ site.inspections }} inspections</p>
-                </div>
+            <div v-for="site in sitePerformance" :key="site.name" class="space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-sm font-medium">{{ site.name }}</span>
+                <span class="text-sm text-muted-foreground">{{ site.score }}/10</span>
               </div>
-              <div class="text-right">
-                <p class="text-sm font-medium">{{ site.score }}%</p>
-                <div class="w-16 bg-muted rounded-full h-2 mt-1">
-                  <div 
-                    class="h-2 rounded-full transition-all duration-500"
-                    :class="site.score >= 90 ? 'bg-green-500' : site.score >= 70 ? 'bg-yellow-500' : 'bg-red-500'"
-                    :style="{ width: `${site.score}%` }"
-                  ></div>
-                </div>
+              <div class="w-full bg-muted rounded-full h-2">
+                <div 
+                  class="h-2 rounded-full transition-all duration-300"
+                  :class="getScoreColor(site.score)"
+                  :style="{ width: `${site.score * 10}%` }"
+                ></div>
               </div>
             </div>
           </div>
@@ -197,23 +189,20 @@
       <!-- Recent Activity -->
       <Card>
         <CardHeader>
-          <CardTitle class="flex items-center">
-            <ActivityIcon class="h-5 w-5 mr-2" />
+          <CardTitle class="flex items-center text-base sm:text-lg">
+            <ActivityIcon class="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
             Recent Activity
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div class="space-y-4">
             <div v-for="activity in recentActivity" :key="activity.id" class="flex items-start space-x-3">
-              <div class="w-2 h-2 rounded-full mt-2" :class="getActivityColor(activity.type)"></div>
-              <div class="flex-1">
-                <p class="text-sm font-medium">{{ activity.title }}</p>
-                <p class="text-xs text-muted-foreground">{{ activity.site }}</p>
-                <p class="text-xs text-muted-foreground mt-1">{{ formatTimeAgo(activity.timestamp) }}</p>
+              <div class="w-2 h-2 rounded-full mt-2 flex-shrink-0" :class="getActivityColor(activity.type)"></div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium truncate">{{ activity.title }}</p>
+                <p class="text-xs text-muted-foreground">{{ activity.description }}</p>
+                <p class="text-xs text-muted-foreground mt-1">{{ formatDate(activity.date) }}</p>
               </div>
-              <Badge :variant="getActivityBadgeVariant(activity.status)">
-                {{ activity.status }}
-              </Badge>
             </div>
           </div>
         </CardContent>
@@ -223,8 +212,8 @@
     <!-- Detailed Statistics Table -->
     <Card>
       <CardHeader>
-        <CardTitle class="flex items-center">
-          <TableIcon class="h-5 w-5 mr-2" />
+        <CardTitle class="flex items-center text-base sm:text-lg">
+          <TableIcon class="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
           Detailed Statistics
         </CardTitle>
       </CardHeader>
@@ -233,32 +222,26 @@
           <table class="w-full">
             <thead>
               <tr class="border-b">
-                <th class="text-left p-2">Site</th>
-                <th class="text-left p-2">Total Inspections</th>
-                <th class="text-left p-2">Completed</th>
-                <th class="text-left p-2">Pending</th>
-                <th class="text-left p-2">Approval Rate</th>
-                <th class="text-left p-2">Avg. Time</th>
-                <th class="text-left p-2">Last Inspection</th>
+                <th class="text-left p-2 text-xs sm:text-sm font-medium">Site</th>
+                <th class="text-left p-2 text-xs sm:text-sm font-medium">Inspections</th>
+                <th class="text-left p-2 text-xs sm:text-sm font-medium">Completion Rate</th>
+                <th class="text-left p-2 text-xs sm:text-sm font-medium">Avg. Score</th>
+                <th class="text-left p-2 text-xs sm:text-sm font-medium">Issues Found</th>
+                <th class="text-left p-2 text-xs sm:text-sm font-medium">Status</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="row in detailedStats" :key="row.site" class="border-b hover:bg-muted/50">
-                <td class="p-2 font-medium">{{ row.site }}</td>
-                <td class="p-2">{{ row.total }}</td>
+              <tr v-for="stat in detailedStats" :key="stat.site" class="border-b hover:bg-muted/50">
+                <td class="p-2 text-xs sm:text-sm font-medium">{{ stat.site }}</td>
+                <td class="p-2 text-xs sm:text-sm">{{ stat.inspections }}</td>
+                <td class="p-2 text-xs sm:text-sm">{{ stat.completionRate }}%</td>
+                <td class="p-2 text-xs sm:text-sm">{{ stat.avgScore }}/10</td>
+                <td class="p-2 text-xs sm:text-sm">{{ stat.issuesFound }}</td>
                 <td class="p-2">
-                  <span class="text-green-600">{{ row.completed }}</span>
+                  <Badge :variant="getStatusVariant(stat.status)" class="text-xs">
+                    {{ stat.status }}
+                  </Badge>
                 </td>
-                <td class="p-2">
-                  <span class="text-yellow-600">{{ row.pending }}</span>
-                </td>
-                <td class="p-2">
-                  <span :class="row.approvalRate >= 90 ? 'text-green-600' : row.approvalRate >= 70 ? 'text-yellow-600' : 'text-red-600'">
-                    {{ row.approvalRate }}%
-                  </span>
-                </td>
-                <td class="p-2">{{ row.avgTime }}h</td>
-                <td class="p-2 text-muted-foreground">{{ formatDate(row.lastInspection) }}</td>
               </tr>
             </tbody>
           </table>

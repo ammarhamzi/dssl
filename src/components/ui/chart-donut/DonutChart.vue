@@ -5,7 +5,7 @@ import { ChartSingleTooltip, defaultColors } from '@/components/ui/chart'
 import { Donut } from '@unovis/ts'
 import { VisDonut, VisSingleContainer } from '@unovis/vue'
 import { useMounted } from '@vueuse/core'
-import { type Component, computed, ref } from 'vue'
+import { type Component, computed, ref, onUnmounted } from 'vue'
 
 const props = withDefaults(defineProps<Pick<BaseChartProps<T>, 'data' | 'colors' | 'index' | 'margin' | 'showLegend' | 'showTooltip' | 'filterOpacity'> & {
   /**
@@ -53,6 +53,26 @@ const legendItems = computed(() => props.data.map((item, i) => ({
   color: colors.value[i],
   inactive: false,
 })))
+
+// Chart cleanup
+const chartRef = ref<HTMLElement | null>(null)
+
+// Cleanup function
+const cleanupChart = () => {
+  if (chartRef.value) {
+    try {
+      // Clear any chart-related data or event listeners
+      chartRef.value.innerHTML = ''
+    } catch (error) {
+      console.warn('Error cleaning up chart:', error)
+    }
+  }
+}
+
+// Cleanup on unmount
+onUnmounted(() => {
+  cleanupChart()
+})
 
 const totalValue = computed(() => props.data.reduce((prev, curr) => {
   return prev + curr[props.category]

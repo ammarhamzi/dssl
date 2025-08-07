@@ -1,27 +1,27 @@
 <template>
   <div class="container mx-auto p-4 space-y-6">
     <!-- Header -->
-    <div class="flex items-center justify-between">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
       <div>
-        <h1 class="text-3xl font-bold">To Do List</h1>
+        <h1 class="text-2xl sm:text-3xl font-bold">To Do List</h1>
         <p class="text-muted-foreground mt-1">Manage your tasks and assignments</p>
       </div>
-      <Button @click="showAddTask = true" class="flex items-center gap-2">
+      <Button @click="showAddTask = true" class="flex items-center gap-2 w-full sm:w-auto">
         <PlusIcon class="h-4 w-4" />
         Add Task
       </Button>
     </div>
 
     <!-- Task Statistics -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       <Card>
         <CardContent class="p-4">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm text-muted-foreground">Total Tasks</p>
-              <p class="text-2xl font-bold">{{ taskStats.total }}</p>
+              <p class="text-xl sm:text-2xl font-bold">{{ taskStats.total }}</p>
             </div>
-            <ListChecksIcon class="h-8 w-8 text-blue-500" />
+            <ListChecksIcon class="h-6 w-6 sm:h-8 sm:w-8 text-blue-500" />
           </div>
         </CardContent>
       </Card>
@@ -31,9 +31,9 @@
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm text-muted-foreground">Pending</p>
-              <p class="text-2xl font-bold text-yellow-600">{{ taskStats.pending }}</p>
+              <p class="text-xl sm:text-2xl font-bold text-yellow-600">{{ taskStats.pending }}</p>
             </div>
-            <ClockIcon class="h-8 w-8 text-yellow-500" />
+            <ClockIcon class="h-6 w-6 sm:h-8 sm:w-8 text-yellow-500" />
           </div>
         </CardContent>
       </Card>
@@ -43,9 +43,9 @@
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm text-muted-foreground">In Progress</p>
-              <p class="text-2xl font-bold text-blue-600">{{ taskStats.inProgress }}</p>
+              <p class="text-xl sm:text-2xl font-bold text-blue-600">{{ taskStats.inProgress }}</p>
             </div>
-            <PlayIcon class="h-8 w-8 text-blue-500" />
+            <PlayIcon class="h-6 w-6 sm:h-8 sm:w-8 text-blue-500" />
           </div>
         </CardContent>
       </Card>
@@ -55,9 +55,9 @@
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm text-muted-foreground">Completed</p>
-              <p class="text-2xl font-bold text-green-600">{{ taskStats.completed }}</p>
+              <p class="text-xl sm:text-2xl font-bold text-green-600">{{ taskStats.completed }}</p>
             </div>
-            <CheckCircleIcon class="h-8 w-8 text-green-500" />
+            <CheckCircleIcon class="h-6 w-6 sm:h-8 sm:w-8 text-green-500" />
           </div>
         </CardContent>
       </Card>
@@ -66,7 +66,7 @@
     <!-- Filter and Search -->
     <Card>
       <CardContent class="p-4">
-        <div class="flex flex-col md:flex-row gap-4">
+        <div class="flex flex-col gap-4">
           <div class="flex-1">
             <div class="relative">
               <SearchIcon class="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -77,97 +77,93 @@
               />
             </div>
           </div>
-          <Select v-model="statusFilter">
-            <SelectTrigger class="w-[180px]">
-              <SelectValue placeholder="Filter by status" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Tasks</SelectItem>
-              <SelectItem value="pending">Pending</SelectItem>
-              <SelectItem value="in-progress">In Progress</SelectItem>
-              <SelectItem value="completed">Completed</SelectItem>
-            </SelectContent>
-          </Select>
-          <Select v-model="priorityFilter">
-            <SelectTrigger class="w-[180px]">
-              <SelectValue placeholder="Filter by priority" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Priorities</SelectItem>
-              <SelectItem value="high">High Priority</SelectItem>
-              <SelectItem value="medium">Medium Priority</SelectItem>
-              <SelectItem value="low">Low Priority</SelectItem>
-            </SelectContent>
-          </Select>
+          <div class="flex flex-col sm:flex-row gap-2">
+            <Select v-model="statusFilter" class="w-full sm:w-[180px]">
+              <SelectTrigger>
+                <SelectValue placeholder="Filter by status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Tasks</SelectItem>
+                <SelectItem value="pending">Pending</SelectItem>
+                <SelectItem value="in-progress">In Progress</SelectItem>
+                <SelectItem value="completed">Completed</SelectItem>
+              </SelectContent>
+            </Select>
+            <Select v-model="priorityFilter" class="w-full sm:w-[180px]">
+              <SelectTrigger>
+                <SelectValue placeholder="Filter by priority" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Priorities</SelectItem>
+                <SelectItem value="high">High Priority</SelectItem>
+                <SelectItem value="medium">Medium Priority</SelectItem>
+                <SelectItem value="low">Low Priority</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
         </div>
       </CardContent>
     </Card>
 
-    <!-- Tasks List -->
+    <!-- Task List -->
     <div class="space-y-4">
-      <div v-for="task in filteredTasks" :key="task.id" class="group">
-        <Card class="hover:shadow-md transition-shadow">
-          <CardContent class="p-4">
-            <div class="flex items-start justify-between">
-              <div class="flex items-start space-x-4 flex-1">
-                <Checkbox 
-                  :checked="task.status === 'completed'"
-                  @update:checked="toggleTaskStatus(task)"
-                  class="mt-1"
-                />
-                <div class="flex-1">
-                  <div class="flex items-center gap-2 mb-1">
-                    <h3 class="font-semibold" :class="task.status === 'completed' ? 'line-through text-muted-foreground' : ''">
-                      {{ task.title }}
-                    </h3>
-                    <Badge :variant="getPriorityVariant(task.priority)">
-                      {{ task.priority }}
-                    </Badge>
-                    <Badge :variant="getStatusVariant(task.status)">
-                      {{ task.status.replace('-', ' ') }}
-                    </Badge>
-                  </div>
-                  <p class="text-sm text-muted-foreground mb-2">{{ task.description }}</p>
-                  <div class="flex items-center gap-4 text-xs text-muted-foreground">
-                    <div class="flex items-center gap-1">
-                      <CalendarIcon class="h-3 w-3" />
-                      <span>Due: {{ formatDate(task.dueDate) }}</span>
-                    </div>
-                    <div class="flex items-center gap-1">
-                      <UserIcon class="h-3 w-3" />
-                      <span>Assigned by: {{ task.assignedBy }}</span>
-                    </div>
-                    <div class="flex items-center gap-1">
-                      <TagIcon class="h-3 w-3" />
-                      <span>{{ task.category }}</span>
-                    </div>
-                  </div>
-                </div>
+      <div v-for="task in filteredTasks" :key="task.id" 
+           class="bg-card border rounded-lg p-4 hover:shadow-md transition-shadow">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div class="flex items-start gap-3 flex-1 min-w-0">
+            <div class="flex-shrink-0">
+              <input
+                type="checkbox"
+                :checked="task.status === 'completed'"
+                @change="toggleTaskStatus(task.id)"
+                class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+              />
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 mb-1">
+                <h3 class="font-medium text-sm sm:text-base truncate" :class="{ 'line-through text-muted-foreground': task.status === 'completed' }">
+                  {{ task.title }}
+                </h3>
+                <Badge :variant="getPriorityVariant(task.priority)" class="text-xs">
+                  {{ task.priority }}
+                </Badge>
+                <Badge :variant="getStatusVariant(task.status)" class="text-xs">
+                  {{ task.status }}
+                </Badge>
               </div>
-              <div class="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                <Button variant="ghost" size="sm" @click="editTask(task)">
-                  <EditIcon class="h-4 w-4" />
-                </Button>
-                <Button variant="ghost" size="sm" @click="deleteTask(task.id)">
-                  <TrashIcon class="h-4 w-4" />
-                </Button>
+              <p class="text-xs sm:text-sm text-muted-foreground mb-2">{{ task.description }}</p>
+              <div class="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+                <span class="flex items-center gap-1">
+                  <CalendarIcon class="h-3 w-3" />
+                  {{ formatDate(task.dueDate) }}
+                </span>
+                <span v-if="task.assignee" class="flex items-center gap-1">
+                  <UserIcon class="h-3 w-3" />
+                  {{ task.assignee }}
+                </span>
               </div>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+          <div class="flex items-center gap-2 flex-shrink-0">
+            <Button variant="outline" size="sm" @click="editTask(task)">
+              <EditIcon class="h-3 w-3" />
+            </Button>
+            <Button variant="outline" size="sm" @click="deleteTask(task.id)">
+              <TrashIcon class="h-3 w-3" />
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- Empty State -->
     <div v-if="filteredTasks.length === 0" class="text-center py-12">
-      <ClipboardListIcon class="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-      <h3 class="text-xl font-semibold mb-2">No tasks found</h3>
-      <p class="text-muted-foreground mb-4">
-        {{ searchQuery || statusFilter !== 'all' || priorityFilter !== 'all' 
-           ? 'Try adjusting your filters or search terms.' 
-           : 'Get started by adding your first task.' }}
-      </p>
-      <Button @click="showAddTask = true" v-if="!searchQuery && statusFilter === 'all' && priorityFilter === 'all'">
+      <div class="mx-auto w-24 h-24 bg-muted rounded-full flex items-center justify-center mb-4">
+        <ListChecksIcon class="h-12 w-12 text-muted-foreground" />
+      </div>
+      <h3 class="text-lg font-semibold mb-2">No tasks found</h3>
+      <p class="text-muted-foreground mb-4">Try adjusting your filters or add a new task</p>
+      <Button @click="showAddTask = true">
         <PlusIcon class="h-4 w-4 mr-2" />
         Add Your First Task
       </Button>
@@ -444,13 +440,16 @@ const getStatusVariant = (status: string) => {
   }
 };
 
-const toggleTaskStatus = (task: Task) => {
-  if (task.status === 'completed') {
-    task.status = 'pending';
-  } else {
-    task.status = 'completed';
+const toggleTaskStatus = (taskId: number) => {
+  const task = tasks.value.find(t => t.id === taskId);
+  if (task) {
+    if (task.status === 'completed') {
+      task.status = 'pending';
+    } else {
+      task.status = 'completed';
+    }
+    toast.success(`Task marked as ${task.status === 'completed' ? 'completed' : 'pending'}`);
   }
-  toast.success(`Task marked as ${task.status === 'completed' ? 'completed' : 'pending'}`);
 };
 
 const editTask = (task: Task) => {

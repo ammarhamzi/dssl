@@ -1,7 +1,7 @@
 import type { UnwrapRefCarouselApi as CarouselApi, CarouselEmits, CarouselProps } from './interface'
 import { createInjectionState } from '@vueuse/core'
 import emblaCarouselVue from 'embla-carousel-vue'
-import { onMounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 
 const [useProvideCarousel, useInjectCarousel] = createInjectionState(
   ({
@@ -29,6 +29,20 @@ const [useProvideCarousel, useInjectCarousel] = createInjectionState(
       canScrollPrev.value = api?.canScrollPrev() || false
     }
 
+    // Cleanup function for carousel
+    const cleanupCarousel = () => {
+      if (emblaApi.value) {
+        try {
+          emblaApi.value.off('init', onSelect)
+          emblaApi.value.off('reInit', onSelect)
+          emblaApi.value.off('select', onSelect)
+          emblaApi.value.destroy()
+        } catch (error) {
+          console.warn('Error cleaning up carousel:', error)
+        }
+      }
+    }
+
     onMounted(() => {
       if (!emblaApi.value)
         return
@@ -40,7 +54,21 @@ const [useProvideCarousel, useInjectCarousel] = createInjectionState(
       emits('init-api', emblaApi.value)
     })
 
-    return { carouselRef: emblaNode, carouselApi: emblaApi, canScrollPrev, canScrollNext, scrollPrev, scrollNext, orientation }
+    // Cleanup on unmount
+    onUnmounted(() => {
+      cleanupCarousel()
+    })
+
+    return { 
+      carouselRef: emblaNode, 
+      carouselApi: emblaApi, 
+      canScrollPrev, 
+      canScrollNext, 
+      scrollPrev, 
+      scrollNext, 
+      orientation,
+      cleanup: cleanupCarousel
+    }
   },
 )
 

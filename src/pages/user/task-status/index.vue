@@ -1,17 +1,17 @@
 <template>
   <div class="container mx-auto p-4 space-y-6">
     <!-- Header -->
-    <div class="flex items-center justify-between">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
       <div>
-        <h1 class="text-3xl font-bold">Task Status</h1>
+        <h1 class="text-2xl sm:text-3xl font-bold">Task Status</h1>
         <p class="text-muted-foreground mt-1">Track and monitor your assigned tasks and their progress</p>
       </div>
-      <div class="flex items-center gap-2">
-        <Button variant="outline" @click="refreshTasks">
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+        <Button variant="outline" @click="refreshTasks" class="w-full sm:w-auto">
           <RefreshCwIcon class="h-4 w-4 mr-2" />
           Refresh
         </Button>
-        <Button @click="showFilters = !showFilters">
+        <Button @click="showFilters = !showFilters" class="w-full sm:w-auto">
           <FilterIcon class="h-4 w-4 mr-2" />
           Filters
         </Button>
@@ -21,7 +21,7 @@
     <!-- Filter Panel -->
     <Card v-if="showFilters">
       <CardContent class="p-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div>
             <Label for="statusFilter">Status</Label>
             <Select v-model="filters.status">
@@ -89,15 +89,15 @@
     </Card>
 
     <!-- Status Overview -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
       <Card>
         <CardContent class="p-4">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm text-muted-foreground">Not Started</p>
-              <p class="text-2xl font-bold text-gray-600">{{ statusCounts.notStarted }}</p>
+              <p class="text-xl sm:text-2xl font-bold text-gray-600">{{ statusCounts.notStarted }}</p>
             </div>
-            <CircleIcon class="h-8 w-8 text-gray-500" />
+            <CircleIcon class="h-6 w-6 sm:h-8 sm:w-8 text-gray-500" />
           </div>
         </CardContent>
       </Card>
@@ -107,9 +107,9 @@
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm text-muted-foreground">In Progress</p>
-              <p class="text-2xl font-bold text-blue-600">{{ statusCounts.inProgress }}</p>
+              <p class="text-xl sm:text-2xl font-bold text-blue-600">{{ statusCounts.inProgress }}</p>
             </div>
-            <PlayIcon class="h-8 w-8 text-blue-500" />
+            <PlayIcon class="h-6 w-6 sm:h-8 sm:w-8 text-blue-500" />
           </div>
         </CardContent>
       </Card>
@@ -119,9 +119,9 @@
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm text-muted-foreground">Under Review</p>
-              <p class="text-2xl font-bold text-yellow-600">{{ statusCounts.underReview }}</p>
+              <p class="text-xl sm:text-2xl font-bold text-yellow-600">{{ statusCounts.underReview }}</p>
             </div>
-            <EyeIcon class="h-8 w-8 text-yellow-500" />
+            <EyeIcon class="h-6 w-6 sm:h-8 sm:w-8 text-yellow-500" />
           </div>
         </CardContent>
       </Card>
@@ -131,9 +131,9 @@
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm text-muted-foreground">Completed</p>
-              <p class="text-2xl font-bold text-green-600">{{ statusCounts.completed }}</p>
+              <p class="text-xl sm:text-2xl font-bold text-green-600">{{ statusCounts.completed }}</p>
             </div>
-            <CheckCircleIcon class="h-8 w-8 text-green-500" />
+            <CheckCircleIcon class="h-6 w-6 sm:h-8 sm:w-8 text-green-500" />
           </div>
         </CardContent>
       </Card>
@@ -143,192 +143,70 @@
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm text-muted-foreground">Overdue</p>
-              <p class="text-2xl font-bold text-red-600">{{ statusCounts.overdue }}</p>
+              <p class="text-xl sm:text-2xl font-bold text-red-600">{{ statusCounts.overdue }}</p>
             </div>
-            <AlertTriangleIcon class="h-8 w-8 text-red-500" />
+            <AlertTriangleIcon class="h-6 w-6 sm:h-8 sm:w-8 text-red-500" />
           </div>
         </CardContent>
       </Card>
     </div>
 
-    <!-- Progress Overview -->
-    <Card>
-      <CardHeader>
-        <CardTitle class="flex items-center">
-          <ProgressIcon class="h-5 w-5 mr-2" />
-          Overall Progress
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div class="space-y-4">
-          <div class="flex items-center justify-between">
-            <span class="text-sm font-medium">Task Completion</span>
-            <span class="text-sm text-muted-foreground">{{ overallProgress.completion }}%</span>
-          </div>
-          <div class="w-full bg-muted rounded-full h-3">
-            <div 
-              class="bg-gradient-to-r from-blue-500 to-green-500 h-3 rounded-full transition-all duration-500" 
-              :style="{ width: `${overallProgress.completion}%` }"
-            ></div>
-          </div>
-          <div class="grid grid-cols-3 gap-4 mt-4">
-            <div class="text-center">
-              <p class="text-2xl font-bold text-blue-600">{{ overallProgress.totalTasks }}</p>
-              <p class="text-sm text-muted-foreground">Total Tasks</p>
-            </div>
-            <div class="text-center">
-              <p class="text-2xl font-bold text-green-600">{{ overallProgress.completedTasks }}</p>
-              <p class="text-sm text-muted-foreground">Completed</p>
-            </div>
-            <div class="text-center">
-              <p class="text-2xl font-bold text-red-600">{{ overallProgress.overdueTasks }}</p>
-              <p class="text-sm text-muted-foreground">Overdue</p>
-            </div>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
-
     <!-- Task List -->
-    <Card>
-      <CardHeader>
-        <CardTitle class="flex items-center justify-between">
-          <div class="flex items-center">
-            <ListIcon class="h-5 w-5 mr-2" />
-            Task List
+    <div class="space-y-4">
+      <div v-for="task in filteredTasks" :key="task.id" 
+           class="bg-card border rounded-lg p-4 hover:shadow-md transition-shadow">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div class="flex items-start gap-3 flex-1 min-w-0">
+            <div class="flex-shrink-0">
+              <div class="w-3 h-3 rounded-full" :class="getPriorityColor(task.priority)"></div>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex flex-wrap items-center gap-2 mb-1">
+                <h3 class="font-medium text-sm sm:text-base truncate">{{ task.title }}</h3>
+                <Badge :variant="getStatusVariant(task.status)" class="text-xs">
+                  {{ task.status.replace('-', ' ') }}
+                </Badge>
+                <Badge :variant="getPriorityVariant(task.priority)" class="text-xs">
+                  {{ task.priority }}
+                </Badge>
+              </div>
+              <p class="text-xs sm:text-sm text-muted-foreground mb-2">{{ task.description }}</p>
+              <div class="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+                <span class="flex items-center gap-1">
+                  <CalendarIcon class="h-3 w-3" />
+                  Due: {{ formatDate(task.dueDate) }}
+                </span>
+                <span class="flex items-center gap-1">
+                  <UserIcon class="h-3 w-3" />
+                  {{ task.assignedBy }}
+                </span>
+                <span class="flex items-center gap-1">
+                  <TagIcon class="h-3 w-3" />
+                  {{ task.category }}
+                </span>
+              </div>
+            </div>
           </div>
-          <div class="text-sm text-muted-foreground">
-            {{ filteredTasks.length }} of {{ tasks.length }} tasks
-          </div>
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div class="space-y-4">
-          <div v-for="task in filteredTasks" :key="task.id" class="group">
-            <Card class="hover:shadow-md transition-shadow">
-              <CardContent class="p-4">
-                <div class="flex items-start justify-between">
-                  <div class="flex-1">
-                    <div class="flex items-center gap-3 mb-2">
-                      <h3 class="font-semibold text-lg">{{ task.title }}</h3>
-                      <Badge :variant="getPriorityVariant(task.priority)">
-                        {{ task.priority }}
-                      </Badge>
-                      <Badge :variant="getStatusVariant(task.status)">
-                        {{ formatStatus(task.status) }}
-                      </Badge>
-                    </div>
-                    
-                    <p class="text-muted-foreground mb-3">{{ task.description }}</p>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-                      <div class="flex items-center gap-2 text-sm">
-                        <UserIcon class="h-4 w-4 text-muted-foreground" />
-                        <span>{{ task.assignedBy }}</span>
-                      </div>
-                      <div class="flex items-center gap-2 text-sm">
-                        <CalendarIcon class="h-4 w-4 text-muted-foreground" />
-                        <span>Due: {{ formatDate(task.dueDate) }}</span>
-                      </div>
-                      <div class="flex items-center gap-2 text-sm">
-                        <TagIcon class="h-4 w-4 text-muted-foreground" />
-                        <span>{{ task.category }}</span>
-                      </div>
-                      <div class="flex items-center gap-2 text-sm">
-                        <ClockIcon class="h-4 w-4 text-muted-foreground" />
-                        <span>{{ getTimeRemaining(task.dueDate) }}</span>
-                      </div>
-                    </div>
-
-                    <!-- Progress Bar -->
-                    <div class="mb-3">
-                      <div class="flex items-center justify-between mb-1">
-                        <span class="text-sm font-medium">Progress</span>
-                        <span class="text-sm text-muted-foreground">{{ task.progress }}%</span>
-                      </div>
-                      <div class="w-full bg-muted rounded-full h-2">
-                        <div 
-                          class="h-2 rounded-full transition-all duration-300"
-                          :class="getProgressColor(task.progress)"
-                          :style="{ width: `${task.progress}%` }"
-                        ></div>
-                      </div>
-                    </div>
-
-                    <!-- Action Buttons -->
-                    <div class="flex items-center gap-2">
-                      <Button 
-                        v-if="task.status === 'not-started'" 
-                        size="sm" 
-                        @click="startTask(task.id)"
-                      >
-                        <PlayIcon class="h-4 w-4 mr-1" />
-                        Start Task
-                      </Button>
-                      <Button 
-                        v-if="task.status === 'in-progress'" 
-                        size="sm" 
-                        variant="outline" 
-                        @click="updateProgress(task.id)"
-                      >
-                        <EditIcon class="h-4 w-4 mr-1" />
-                        Update Progress
-                      </Button>
-                      <Button 
-                        v-if="task.status === 'in-progress' && task.progress >= 100" 
-                        size="sm" 
-                        @click="submitForReview(task.id)"
-                      >
-                        <SendIcon class="h-4 w-4 mr-1" />
-                        Submit for Review
-                      </Button>
-                      <Button 
-                        size="sm" 
-                        variant="ghost" 
-                        @click="viewTaskDetails(task.id)"
-                      >
-                        <EyeIcon class="h-4 w-4 mr-1" />
-                        View Details
-                      </Button>
-                      <Button 
-                        v-if="task.attachments && task.attachments.length > 0" 
-                        size="sm" 
-                        variant="ghost"
-                        @click="viewAttachments(task.id)"
-                      >
-                        <PaperclipIcon class="h-4 w-4 mr-1" />
-                        Attachments ({{ task.attachments.length }})
-                      </Button>
-                    </div>
-                  </div>
-                  
-                  <!-- Status Icon -->
-                  <div class="ml-4">
-                    <div class="w-12 h-12 rounded-full flex items-center justify-center"
-                         :class="getStatusIconBackground(task.status)">
-                      <component :is="getStatusIcon(task.status)" class="h-6 w-6" 
-                                 :class="getStatusIconColor(task.status)" />
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+          <div class="flex items-center gap-2 flex-shrink-0">
+            <Button variant="outline" size="sm" @click="viewTaskDetails(task)">
+              <EyeIcon class="h-3 w-3" />
+            </Button>
+            <Button variant="outline" size="sm" @click="updateTaskStatus(task.id)">
+              <EditIcon class="h-3 w-3" />
+            </Button>
           </div>
         </div>
+      </div>
+    </div>
 
-        <!-- Empty State -->
-        <div v-if="filteredTasks.length === 0" class="text-center py-12">
-          <ClipboardListIcon class="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-          <h3 class="text-xl font-semibold mb-2">No tasks found</h3>
-          <p class="text-muted-foreground mb-4">
-            {{ hasActiveFilters ? 'Try adjusting your filters to see more tasks.' : 'You have no tasks assigned at the moment.' }}
-          </p>
-          <Button v-if="hasActiveFilters" @click="clearFilters">
-            Clear Filters
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
+    <!-- Empty State -->
+    <div v-if="filteredTasks.length === 0" class="text-center py-12">
+      <div class="mx-auto w-24 h-24 bg-muted rounded-full flex items-center justify-center mb-4">
+        <ClipboardListIcon class="h-12 w-12 text-muted-foreground" />
+      </div>
+      <h3 class="text-lg font-semibold mb-2">No tasks found</h3>
+      <p class="text-muted-foreground mb-4">Try adjusting your filters or check back later</p>
+    </div>
   </div>
 </template>
 
@@ -671,12 +549,26 @@ const submitForReview = (taskId: number) => {
   }
 };
 
-const viewTaskDetails = (taskId: number) => {
-  toast.info(`Opening detailed view for task ${taskId}`);
+const viewTaskDetails = (task: Task) => {
+  toast.info(`Opening detailed view for task ${task.id}`);
 };
 
 const viewAttachments = (taskId: number) => {
   toast.info(`Opening attachments for task ${taskId}`);
+};
+
+const updateTaskStatus = (taskId: number) => {
+  toast.info(`Updating status for task ${taskId}`);
+};
+
+const getPriorityColor = (priority: string) => {
+  switch (priority) {
+    case 'urgent': return 'bg-red-100 dark:bg-red-900';
+    case 'high': return 'bg-orange-100 dark:bg-orange-900';
+    case 'medium': return 'bg-yellow-100 dark:bg-yellow-900';
+    case 'low': return 'bg-green-100 dark:bg-green-900';
+    default: return 'bg-gray-100 dark:bg-gray-800';
+  }
 };
 
 onMounted(() => {
