@@ -27,3 +27,5 @@ A web application for recording, reviewing, and tracking substation operations a
 - `cli/`: project/DB utilities
 
 This document intentionally omits installation and run steps.
+
+#TESTING PURPOSE ONLY NOT PROD 
