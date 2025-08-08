@@ -58,6 +58,7 @@ const colorSchemes = [
   { name: 'blue', value: 'blue', hsl: '221.2 83.2% 53.3%' },
   { name: 'yellow', value: 'yellow', hsl: '47.9 95.8% 53.1%' },
   { name: 'violet', value: 'violet', hsl: '262.1 83.3% 57.8%' },
+  { name: 'MAHB', value: 'mahb', hsl: '203 100% 38.6%' },
   { name: 'claude', value: 'claude', hsl: '35 68.0412% 38.0392%' },
 ];
 
