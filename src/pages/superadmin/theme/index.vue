@@ -467,6 +467,15 @@ const themePresets = [
     borderRadius: '0.75rem',
     fontFamily: 'Inter, sans-serif',
   },
+  {
+    name: 'MAHB (Malaysia Airports)',
+    description: 'Professional scheme for Malaysia Airports: blue primary, orange accent',
+    primaryColor: '#0078c5',
+    secondaryColor: '#ee9527',
+    accentColor: '#ee9527',
+    borderRadius: '0.375rem',
+    fontFamily: 'Inter, sans-serif',
+  },
 ];
 
 // Methods
