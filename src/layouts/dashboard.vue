@@ -39,6 +39,7 @@ import {
   ChevronRight,
   Bell,
   Shield as ShieldIcon,
+  
 } from "lucide-vue-next";
 import ImpersonationBanner from "@/components/ImpersonationBanner.vue";
 const navigationStore = useNavigationStore();
@@ -204,6 +205,7 @@ onUnmounted(() => {
             
             <!-- Desktop Sidebar Toggle (Optional - for desktop users who want to collapse) -->
             <SidebarTrigger class="hidden md:flex" />
+            
             
             <!-- Breadcrumbs or page title can go here -->
           </div>

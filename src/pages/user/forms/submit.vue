@@ -18,7 +18,8 @@ import {
   Settings as SettingsIcon,
   Battery as BatteryIcon,
   ClipboardList as ClipboardListIcon,
-  Eye as EyeIcon
+  Eye as EyeIcon,
+  
 } from "lucide-vue-next";
 
 const router = useRouter();
@@ -114,58 +115,7 @@ const selectForm = (formType: 'normal' | 'routine') => {
       </div>
     </div>
 
-    <!-- Quick Stats -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      <Card>
-        <CardContent class="p-4">
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="text-sm text-muted-foreground">Total Submissions</p>
-              <p class="text-xl sm:text-2xl font-bold">{{ submissionStats.total }}</p>
-            </div>
-            <ClipboardCheckIcon class="h-6 w-6 sm:h-8 sm:w-8 text-blue-500" />
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardContent class="p-4">
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="text-sm text-muted-foreground">Approved</p>
-              <p class="text-xl sm:text-2xl font-bold text-green-600">{{ submissionStats.approved }}</p>
-            </div>
-            <CheckCircleIcon class="h-6 w-6 sm:h-8 sm:w-8 text-green-500" />
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardContent class="p-4">
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="text-sm text-muted-foreground">Pending</p>
-              <p class="text-xl sm:text-2xl font-bold text-yellow-600">{{ submissionStats.pending }}</p>
-            </div>
-            <ClockIcon class="h-6 w-6 sm:h-8 sm:w-8 text-yellow-500" />
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardContent class="p-4">
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="text-sm text-muted-foreground">Under Review</p>
-              <p class="text-xl sm:text-2xl font-bold text-blue-600">{{ submissionStats.underReview }}</p>
-            </div>
-            <AlertTriangleIcon class="h-6 w-6 sm:h-8 sm:w-8 text-blue-500" />
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-
-    <!-- Form Selection Cards -->
+    <!-- Form Selection Cards (moved above quick stats) -->
     <div class="max-w-4xl mx-auto">
       <div class="text-center mb-8">
         <h2 class="text-xl sm:text-2xl font-bold mb-2">Choose Inspection Type</h2>
@@ -264,6 +214,58 @@ const selectForm = (formType: 'normal' | 'routine') => {
         </Card>
       </div>
     </div>
+
+    <!-- Quick Stats -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <Card>
+        <CardContent class="p-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm text-muted-foreground">Total Submissions</p>
+              <p class="text-xl sm:text-2xl font-bold">{{ submissionStats.total }}</p>
+            </div>
+            <ClipboardCheckIcon class="h-6 w-6 sm:h-8 sm:w-8 text-blue-500" />
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardContent class="p-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm text-muted-foreground">Approved</p>
+              <p class="text-xl sm:text-2xl font-bold text-green-600">{{ submissionStats.approved }}</p>
+            </div>
+            <CheckCircleIcon class="h-6 w-6 sm:h-8 sm:w-8 text-green-500" />
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardContent class="p-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm text-muted-foreground">Pending</p>
+              <p class="text-xl sm:text-2xl font-bold text-yellow-600">{{ submissionStats.pending }}</p>
+            </div>
+            <ClockIcon class="h-6 w-6 sm:h-8 sm:w-8 text-yellow-500" />
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardContent class="p-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm text-muted-foreground">Under Review</p>
+              <p class="text-xl sm:text-2xl font-bold text-blue-600">{{ submissionStats.underReview }}</p>
+            </div>
+            <AlertTriangleIcon class="h-6 w-6 sm:h-8 sm:w-8 text-blue-500" />
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+
 
     <!-- Recent Submissions -->
     <Card>
